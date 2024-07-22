@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  # main:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   tty: true
+  #   volumes:
+  #    - .:/workspace
+  pgweb:
+    image: sosedoff/pgweb
+    ports:
+      - '8080:8081'
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/master_data?sslmode=disable
+    depends_on:
+      - db
+  db:
+    image: postgres:16
+    container_name: postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - db-store:/var/lib/postgresql/data
+      - ./data/:/tmp/
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=master_data
+volumes:
+  db-store:

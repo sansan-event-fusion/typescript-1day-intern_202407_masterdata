@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url      = "postgres://user:password@db:5432/master_data?sslmode=disable" // for docker
+  url         = "postgresql://user:password@localhost:5433/master_data?schema=public"
+}
+
+model BaseAttribute {
+  id Int @id @default(autoincrement())
+  sansan_organization_code String
+  sansan_location_code String
+  data_source String
+  crawled_at DateTime
+  attribute String
+  value String
+}
+
+model BusinessLocation {
+  id Int @id @default(autoincrement())
+  sansan_organization_code String
+  sansan_location_code String
+  base_name String
+  zip_code String?
+  address String
+  phone_number String?
+  updated_at DateTime
+}
+
+model Organization {
+  id Int @id @default(autoincrement())
+  sansan_organization_code String
+  url String?
+  country_code String?
+  corporate_number String?
+  name String?
+  name_furigana String?
+  address_inside String?
+  prefecture_name String?
+  prefecture_code String?
+  updated_at DateTime?
+}
