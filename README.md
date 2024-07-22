@@ -14,7 +14,7 @@ TypeScript ビジネスデータ基盤開発 1Day Internship で使用するリ�
 1. 以下のコマンドを実行し、コードをクローンする。
 
 ```
-git clone git@github.com:eightcard/master_data_1day_intern.git
+git clone git@github.com:sansan-event-fusion/typescript-1day-intern_202407_masterdata.git
 ```
 
 2. リポジトリのディレクトリに移動し、`yarn install` を実行する。
