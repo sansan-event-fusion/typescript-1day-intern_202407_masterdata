@@ -20,7 +20,7 @@ git clone git@github.com:sansan-event-fusion/typescript-1day-intern_202407_maste
 2. リポジトリのディレクトリに移動し、`yarn install` を実行する。
 
 ```
-cd master_data_1day_intern
+cd typescript-1day-intern_202407_masterdata
 yarn install
 ```
 
