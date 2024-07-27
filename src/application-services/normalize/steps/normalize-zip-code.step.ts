@@ -24,5 +24,23 @@ export const NormalizeZipCodeStep: NormalizeWorkflowStep = (data) => {
 
 const normalizeZipCode = (zipCode: string) => {
   // ここに処理を書いてください
+
+  // 数字の区切り文字を半角ハイフンに統一
+  zipCode = zipCode.replace(/\u30fc/g, '-');
+
+  // 全角文字を半角文字に
+  zipCode = zipCode.normalize('NFKC');
+  // zipCode = zipCode.replace(/[０-９]/g, (s) => {
+  //   return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+  // });
+
+  // 空白文字の削除
+  zipCode = zipCode.replace(/\s/g, '');
+
+  // フォーマットの統一
+  if (zipCode.match(/^\d{7}$/) || zipCode.match(/^\d{5}$/)) {
+    zipCode = zipCode.slice(0, 3) + '-' + zipCode.slice(3);
+  }
+
   return zipCode;
 };

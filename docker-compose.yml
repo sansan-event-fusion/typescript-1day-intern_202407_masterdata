@@ -16,6 +16,7 @@ services:
       DATABASE_URL: postgres://user:password@db:5432/master_data?sslmode=disable
     depends_on:
       - db
+    restart: always
   db:
     image: postgres:16
     container_name: postgres

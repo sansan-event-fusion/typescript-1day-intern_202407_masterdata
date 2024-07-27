@@ -2,6 +2,7 @@ import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step';
 import { Attributes } from 'src/value/attribute';
 import { BaseNameAttributeValue } from 'src/value/business-location-attribute';
 import { CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP } from './constant';
+import { from } from 'rxjs';
 
 export const NormalizeBusinessLocationNameStep: NormalizeWorkflowStep = (
   data,
@@ -28,5 +29,18 @@ export const NormalizeBusinessLocationNameStep: NormalizeWorkflowStep = (
 
 const normalizeBusinessLocationName = (businessLocationName: string) => {
   // ここに処理を書いてください
+
+  // 康煕部首文字・ CJK 部首補助文字を置換
+  for (const [from, to] of CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP) {
+    businessLocationName = businessLocationName.replace(from, to);
+  }
+
+  // 拠点名に法人名が含まれていた場合、法人名を除去
+  if (businessLocationName.includes(' ')) {
+    businessLocationName = businessLocationName.split(' ')[1];
+  }
+
+  
+
   return businessLocationName;
 };

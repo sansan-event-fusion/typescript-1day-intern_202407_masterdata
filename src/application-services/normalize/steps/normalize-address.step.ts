@@ -52,12 +52,31 @@ export const NormalizeAddressStep: NormalizeWorkflowStep = async (data) => {
 const normalizeAddress = async (address: string) => {
   // ここに処理を書いてください
 
+  // // ビル名に含まれる長音符をハイフンに
+  // address = address.replace(/ー/g, '-');
+
+  // 入力値がfalsyな値の場合、outにデータを追加しない
+  if (!address) return address;
+
+  // 住所の正規化
   // 住所正規化ライブラリ
-  // const geoloniaNormalizedObj = await normalize(result);
-  // result =
-  //   geoloniaNormalizedObj.pref +
-  //   geoloniaNormalizedObj.city +
-  //   geoloniaNormalizedObj.town +
-  //   geoloniaNormalizedObj.addr;
+  const geoloniaNormalizedObj = await normalize(address);
+  address =
+    geoloniaNormalizedObj.pref +
+    geoloniaNormalizedObj.city +
+    geoloniaNormalizedObj.town +
+    geoloniaNormalizedObj.addr;
+
+  // 康煕部首文字、および、CJK 部首補助文字
+  address = CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.reduce(
+    (accumulator: string, [fromRegexp, to]: [RegExp, string]) => {
+      return accumulator.replace(fromRegexp, to);
+    },
+    address,
+  );
+
+  // 半角カナが全角カナに変換
+  address = address.normalize('NFKC');
+
   return address;
 };
