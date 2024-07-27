@@ -276,3 +276,10 @@ export const CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP = [
   ['2FD5', '⿕', '9FA0', '龠'],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 ].map(([, from, , to]) => [new RegExp(from, 'g'), to]);
+
+// ].map(([, from, , to]) => {
+//   return {
+//     from: new RegExp(from, 'g'),
+//     to: to
+//   }
+// });

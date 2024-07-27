@@ -167,7 +167,7 @@ describe('NormalizeAddressStep', () => {
     });
   });
 
-  it.skip('5. タブ文字、改行文字、復帰文字以外の制御文字は取り除かれる', async () => {
+  it('5. タブ文字、改行文字、復帰文字以外の制御文字は取り除かれる', async () => {
     const inputData = {
       in: {
         ...dummyRawData,

@@ -2,6 +2,7 @@ import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step';
 import { Attributes } from 'src/value/attribute';
 import { BaseNameAttributeValue } from 'src/value/business-location-attribute';
 import { CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP } from './constant';
+import { forEach } from 'lodash';
 
 export const NormalizeBusinessLocationNameStep: NormalizeWorkflowStep = (
   data,
@@ -28,5 +29,12 @@ export const NormalizeBusinessLocationNameStep: NormalizeWorkflowStep = (
 
 const normalizeBusinessLocationName = (businessLocationName: string) => {
   // ここに処理を書いてください
-  return businessLocationName;
+  //  forEach(const CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP of CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP )
+  let result = CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.reduce(
+    (accumulator: string, [fromRegexp, to]: [RegExp, string]) => {
+      return accumulator.replace(fromRegexp, to);
+    },
+    businessLocationName,
+  );
+  return result
 };
