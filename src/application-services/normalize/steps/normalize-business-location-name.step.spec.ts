@@ -69,7 +69,7 @@ describe('NormalizeBusinessLocationNameStep', () => {
     expect(result.out[0]).toEqual(expectedOutput);
   });
 
-  describe.skip('4. 拠点名に法人名が含まれている場合、法人名を除去する', () => {
+  describe('4. 拠点名に法人名が含まれている場合、法人名を除去する', () => {
     it.each(['株式会社Sansan', 'Sansan株式会社'])(
       '%s',
       async (companyName: string) => {

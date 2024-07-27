@@ -9,14 +9,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // 正規化ワークフロー
-  console.time('normalizeWorkflow');
-  const rawRepo = app.get(RawDataRepo);
-  const rawDataObservable = await rawRepo.fetch();
-  const normalizeExecutor = app.get<WorkFlowExecutorService>(
-    WorkflowType.NORMALIZE,
-  );
-  await normalizeExecutor.execute(rawDataObservable);
-  console.timeEnd('normalizeWorkflow');
+  // console.time('normalizeWorkflow');
+  // const rawRepo = app.get(RawDataRepo);
+  // const rawDataObservable = await rawRepo.fetch();
+  // const normalizeExecutor = app.get<WorkFlowExecutorService>(
+  //   WorkflowType.NORMALIZE,
+  // );
+  // await normalizeExecutor.execute(rawDataObservable);
+  // console.timeEnd('normalizeWorkflow');
 
   // 名寄せ・統合ワークフロー
   console.time('mergeWorkflow');
