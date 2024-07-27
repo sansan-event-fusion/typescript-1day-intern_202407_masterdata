@@ -2,7 +2,10 @@ import { normalize } from '@geolonia/normalize-japanese-addresses';
 import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step';
 import { Attributes } from 'src/value/attribute';
 import { AddressAttributeValue } from 'src/value/business-location-attribute';
-import { CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP } from './constant';
+import {
+  CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP,
+  CONTROL_CHARACTER_REGEXP,
+} from './constant';
 
 const IROHA_ADDRESS = [
   '金沢市高柳町',
@@ -51,13 +54,20 @@ export const NormalizeAddressStep: NormalizeWorkflowStep = async (data) => {
 
 const normalizeAddress = async (address: string) => {
   // ここに処理を書いてください
+  let result = CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.reduce(
+    (acc, [from, to]) => acc.replace(from, to),
+    address,
+  );
+  result = result.normalize('NFKC');
+  result = result.replace(CONTROL_CHARACTER_REGEXP, '');
 
   // 住所正規化ライブラリ
-  // const geoloniaNormalizedObj = await normalize(result);
-  // result =
-  //   geoloniaNormalizedObj.pref +
-  //   geoloniaNormalizedObj.city +
-  //   geoloniaNormalizedObj.town +
-  //   geoloniaNormalizedObj.addr;
-  return address;
+  const geoloniaNormalizedObj = await normalize(result);
+  result =
+    geoloniaNormalizedObj.pref +
+    geoloniaNormalizedObj.city +
+    geoloniaNormalizedObj.town +
+    geoloniaNormalizedObj.addr;
+
+  return result;
 };

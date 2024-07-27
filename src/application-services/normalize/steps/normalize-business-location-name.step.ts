@@ -28,5 +28,13 @@ export const NormalizeBusinessLocationNameStep: NormalizeWorkflowStep = (
 
 const normalizeBusinessLocationName = (businessLocationName: string) => {
   // ここに処理を書いてください
-  return businessLocationName;
+  let result = CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.reduce(
+    (acc, [from, to]) => acc.replace(from, to),
+    businessLocationName,
+  );
+  result = result
+    .split(/\s/)
+    .filter((word) => !word.match(/株式会社/g) && !word.match(/\(株\)/g))
+    .join('');
+  return result;
 };
