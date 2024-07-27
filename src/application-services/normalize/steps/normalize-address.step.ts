@@ -67,5 +67,7 @@ const normalizeAddress = async (address: string) => {
     },
     result,
   );
+
+  result = result.normalize('NFKC');
   return result;
 };
