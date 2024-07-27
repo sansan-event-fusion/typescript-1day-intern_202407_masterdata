@@ -28,5 +28,10 @@ export const NormalizeBusinessLocationNameStep: NormalizeWorkflowStep = (
 
 const normalizeBusinessLocationName = (businessLocationName: string) => {
   // ここに処理を書いてください
+  CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.forEach((arr) => {
+    let pattern = arr[0];
+    let to: string = arr[1] as string;
+    businessLocationName = businessLocationName.replace(pattern, to);
+  })
   return businessLocationName;
 };
