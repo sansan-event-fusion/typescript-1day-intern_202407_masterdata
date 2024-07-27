@@ -1,7 +1,12 @@
 // タブ文字、改行文字、復帰文字以外の制御文字
-export const CONTROL_CHARACTER_REGEXP = /[\x00-\x08\x0B\x0C\x0E-\x1F\xAD\x7F]/g;
+export const CONTROL_CHARACTER_REGEXP = /[\x00-\x08\x0B\x0C\x0E-\x1F\xAD\x7F]/g
 
-export const CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP = [
+export const CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP: [
+  string,
+  string,
+  string,
+  string
+][] = [
   ['2E83', '⺃', '4E5A', '乚'],
   ['2E85', '⺅', '4EBB', '亻'],
   ['2E87', '⺇', '20628', '𠘨'],
@@ -273,6 +278,6 @@ export const CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP = [
   ['2FD2', '⿒', '9F52', '齒'],
   ['2FD3', '⿓', '9F8D', '龍'],
   ['2FD4', '⿔', '9F9C', '龜'],
-  ['2FD5', '⿕', '9FA0', '龠'],
+  ['2FD5', '⿕', '9FA0', '龠']
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-].map(([, from, , to]) => [new RegExp(from, 'g'), to]);
+]

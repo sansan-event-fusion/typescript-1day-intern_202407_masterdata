@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import { SLC, SOC } from './sansan-code';
-import { Attributes } from './attribute';
+import { z } from 'zod'
+import { SLC, SOC } from './sansan-code'
+import { Attributes } from './attribute'
 
-export type BusinessLocation = z.infer<typeof BusinessLocation>;
+export type BusinessLocation = z.infer<typeof BusinessLocation>
 
 /**
  * 拠点情報
@@ -21,5 +21,5 @@ export const BusinessLocation = z.object({
   /** 郵便番号 */
   [Attributes.ZIP_CODE]: z.string().nullable().default(null),
   /** 拠点情報の更新日時: 最新の収集日 */
-  updated_at: z.date(),
-});
+  updated_at: z.date()
+})

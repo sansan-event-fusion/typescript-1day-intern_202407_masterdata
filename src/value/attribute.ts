@@ -11,7 +11,7 @@ export const Attributes = {
   /** 電話番号 */
   PHONE_NUMBER: 'phone_number',
   /** 都道府県コード */
-  PREFECTURE_CODE: 'prefecture_code',
-} as const;
+  PREFECTURE_CODE: 'prefecture_code'
+} as const
 
-export type Attribute = (typeof Attributes)[keyof typeof Attributes];
+export type Attribute = (typeof Attributes)[keyof typeof Attributes]

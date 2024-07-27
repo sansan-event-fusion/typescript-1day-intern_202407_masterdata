@@ -1,4 +1,4 @@
-import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step';
+import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step'
 
 // NOTE: 使いやすいように加工してもよいです
 // const PREFECTURE_CODE_MAP = [
@@ -52,5 +52,5 @@ import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step';
 // ];
 
 export const AddPrefectureCodeStep: NormalizeWorkflowStep = (data) => {
-  return data;
-};
+  return data
+}

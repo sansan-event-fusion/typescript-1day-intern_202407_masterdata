@@ -1,4 +1,4 @@
-import { BusinessLocationAttribute } from 'src/value/business-location-attribute';
+import { BusinessLocationAttribute } from 'src/value/business-location-attribute'
 import {
   baseData,
   dummySOC,
@@ -6,135 +6,135 @@ import {
   manualCollectionOtherAttribute,
   modificationAttribute,
   otherAttribute,
-  otherSLCAttribute,
-} from './__fixtures__';
-import { SelectManualCollectionStep } from './select-manual-collection.step';
+  otherSLCAttribute
+} from './__fixtures__'
+import { SelectManualCollectionStep } from './select-manual-collection.step'
 
 describe('SelectManualCollectionStep', () => {
   it('人力収集がない場合、何もしないで受け取ったMergeWorkFlowDataをそのまま返す', () => {
     const result = SelectManualCollectionStep({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: baseData,
+        attributes: baseData
       },
-      out: undefined,
-    });
+      out: undefined
+    })
     expect(result).toEqual({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: baseData,
+        attributes: baseData
       },
-      out: undefined,
-    });
-  });
+      out: undefined
+    })
+  })
 
   it('人力収集がない場合に、修正データがあっても、何もしないで受け取ったMergeWorkFlowDataをそのまま返す', () => {
     const data: BusinessLocationAttribute[] = [
       ...baseData,
-      modificationAttribute,
-    ];
+      modificationAttribute
+    ]
     const result = SelectManualCollectionStep({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: data,
+        attributes: data
       },
-      out: undefined,
-    });
+      out: undefined
+    })
     expect(result).toEqual({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: data,
+        attributes: data
       },
-      out: undefined,
-    });
-  });
+      out: undefined
+    })
+  })
 
   it('人力収集が一件のみの場合、人力収集データのみが残る', () => {
     const data: BusinessLocationAttribute[] = [
       ...baseData,
-      manualCollectionAttribute,
-    ];
+      manualCollectionAttribute
+    ]
     const result = SelectManualCollectionStep({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: data,
+        attributes: data
       },
-      out: undefined,
-    });
+      out: undefined
+    })
     expect(result).toEqual({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: [manualCollectionAttribute],
+        attributes: [manualCollectionAttribute]
       },
-      out: undefined,
-    });
-  });
+      out: undefined
+    })
+  })
 
   it('人力収集が複数の場合、人力収集データのみが残る', () => {
     const data: BusinessLocationAttribute[] = [
       ...baseData,
       manualCollectionAttribute,
-      manualCollectionOtherAttribute,
-    ];
+      manualCollectionOtherAttribute
+    ]
     const result = SelectManualCollectionStep({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: data,
+        attributes: data
       },
-      out: undefined,
-    });
+      out: undefined
+    })
     expect(result).toEqual({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: [manualCollectionAttribute, manualCollectionOtherAttribute],
+        attributes: [manualCollectionAttribute, manualCollectionOtherAttribute]
       },
-      out: undefined,
-    });
-  });
+      out: undefined
+    })
+  })
 
   it('人力収集の他に修正データがある場合、人力収集と修正データが残る', () => {
     const data: BusinessLocationAttribute[] = [
       ...baseData,
       modificationAttribute,
-      manualCollectionAttribute,
-    ];
+      manualCollectionAttribute
+    ]
     const result = SelectManualCollectionStep({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: data,
+        attributes: data
       },
-      out: undefined,
-    });
+      out: undefined
+    })
     expect(result).toEqual({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: [modificationAttribute, manualCollectionAttribute],
+        attributes: [modificationAttribute, manualCollectionAttribute]
       },
-      out: undefined,
-    });
-  });
+      out: undefined
+    })
+  })
 
   it('人力収集データがある場合、他のSLCのデータも除去する', () => {
     const data: BusinessLocationAttribute[] = [
       ...baseData,
       manualCollectionAttribute,
       otherAttribute,
-      otherSLCAttribute,
-    ];
+      otherSLCAttribute
+    ]
 
     const result = SelectManualCollectionStep({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: data,
+        attributes: data
       },
-      out: undefined,
-    });
+      out: undefined
+    })
     expect(result).toEqual({
       in: {
         sansan_organization_code: dummySOC,
-        attributes: [manualCollectionAttribute],
+        attributes: [manualCollectionAttribute]
       },
-      out: undefined,
-    });
-  });
-});
+      out: undefined
+    })
+  })
+})

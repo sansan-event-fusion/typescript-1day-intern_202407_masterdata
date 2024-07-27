@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
   const seedPromise = prisma.$executeRaw`
@@ -9,15 +9,15 @@ async function main() {
   WITH CSV
   DELIMITER ','
   HEADER
-`;
-  await seedPromise;
+`
+  await seedPromise
 }
 
 main()
   .catch((e) => {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })

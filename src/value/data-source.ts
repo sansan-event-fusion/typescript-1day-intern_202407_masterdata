@@ -9,7 +9,7 @@ export const DataSources = {
   /** 修正データ */
   MODIFICATION: 'MODIFICATION',
   /** 人力収集データ */
-  MANUAL_COLLECTION: 'MANUAL_COLLECTION',
-} as const;
+  MANUAL_COLLECTION: 'MANUAL_COLLECTION'
+} as const
 
-export type DataSource = (typeof DataSources)[keyof typeof DataSources];
+export type DataSource = (typeof DataSources)[keyof typeof DataSources]

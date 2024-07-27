@@ -1,8 +1,11 @@
-import { normalize } from '@geolonia/normalize-japanese-addresses';
-import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step';
-import { Attributes } from 'src/value/attribute';
-import { AddressAttributeValue } from 'src/value/business-location-attribute';
-import { CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP } from './constant';
+import { normalize } from '@geolonia/normalize-japanese-addresses'
+import { NormalizeWorkflowStep } from 'src/types/normalize-workflow-step'
+import { Attributes } from 'src/value/attribute'
+import { AddressAttributeValue } from 'src/value/business-location-attribute'
+import {
+  CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP,
+  CONTROL_CHARACTER_REGEXP
+} from './constant'
 
 const IROHA_ADDRESS = [
   '金沢市高柳町',
@@ -15,18 +18,18 @@ const IROHA_ADDRESS = [
   '金沢市金石本町',
   '能美市寺井町',
   '金沢市保古町',
-  '金沢市浅野本町',
-];
+  '金沢市浅野本町'
+]
 const IROHA_REGEX = new RegExp(
-  `(?<=${IROHA_ADDRESS.join('|')})二(?=[0-9〇一二三四五六七八九十百千])`,
-);
+  `(?<=${IROHA_ADDRESS.join('|')})二(?=[0-9〇一二三四五六七八九十百千])`
+)
 
 // WANT: 同期処理にしたい
 export const NormalizeAddressStep: NormalizeWorkflowStep = async (data) => {
   try {
-    if (!data.in.address) return data;
+    if (!data.in.address) return data
 
-    const normalizedAddress = await normalizeAddress(data.in.address);
+    const normalizedAddress = await normalizeAddress(data.in.address)
 
     const addressAttribute: AddressAttributeValue = {
       sansan_organization_code: data.in.sansan_organization_code,
@@ -34,30 +37,37 @@ export const NormalizeAddressStep: NormalizeWorkflowStep = async (data) => {
       data_source: data.in.data_source,
       crawled_at: data.in.crawled_at,
       attribute: Attributes.ADDRESS,
-      value: normalizedAddress,
-    };
+      value: normalizedAddress
+    }
     const result = {
       ...data,
-      out: [...data.out, addressAttribute],
-    };
-    return result;
+      out: [...data.out, addressAttribute]
+    }
+    return result
   } catch (err) {
     console.error(
-      `住所正規化エラー, err: ${err}, address: ${data.in.address}, stack: ${err.stack}`,
-    );
-    return data;
+      `住所正規化エラー, err: ${err}, address: ${data.in.address}, stack: ${err.stack}`
+    )
+    return data
   }
-};
+}
 
 const normalizeAddress = async (address: string) => {
   // ここに処理を書いてください
-
-  // 住所正規化ライブラリ
-  // const geoloniaNormalizedObj = await normalize(result);
-  // result =
-  //   geoloniaNormalizedObj.pref +
-  //   geoloniaNormalizedObj.city +
-  //   geoloniaNormalizedObj.town +
-  //   geoloniaNormalizedObj.addr;
-  return address;
-};
+  const cjkReplaced = CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.reduce(
+    (str, [, from, , to]) => {
+      return str.replaceAll(from, to)
+    },
+    address
+  )
+  const bomRemoved = cjkReplaced.replace(CONTROL_CHARACTER_REGEXP, '')
+  const zenkaku = bomRemoved.normalize('NFKC')
+  const irohaReplaced = zenkaku.replace(IROHA_REGEX, `\u30cb`)
+  const geoloniaNormalizedObj = await normalize(irohaReplaced)
+  const result =
+    geoloniaNormalizedObj.pref +
+    geoloniaNormalizedObj.city +
+    geoloniaNormalizedObj.town +
+    geoloniaNormalizedObj.addr
+  return result
+}
