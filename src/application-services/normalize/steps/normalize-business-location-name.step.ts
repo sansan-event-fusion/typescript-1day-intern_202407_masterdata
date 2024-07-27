@@ -28,5 +28,28 @@ export const NormalizeBusinessLocationNameStep: NormalizeWorkflowStep = (
 
 const normalizeBusinessLocationName = (businessLocationName: string) => {
   // ここに処理を書いてください
-  return businessLocationName;
+  // let normalizeBusinessLocationName = businessLocationName;
+
+  // CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.forEach((arr) => {
+  //   // console.log('====================');
+  //   // console.log(arr);
+  //   // console.log('====================');
+
+  //   if (typeof arr[1] === 'string') {
+  //     normalizeBusinessLocationName = normalizeBusinessLocationName.replace(
+  //       arr[0],
+  //       arr[1],
+  //     );
+  //   }
+  // });
+
+    // POINT: 置換対象文字が置換される
+    let normalizeBusinessLocationName = CJK_RADICALS_SUPPLEMENT_REPLACE_REGEXP_MAP.reduce(
+      (accumulator: string, [fromRegexp, to]: [RegExp, string]) => {
+        return accumulator.replace(fromRegexp, to);
+      },
+      businessLocationName,
+    );
+
+  return normalizeBusinessLocationName;
 };
