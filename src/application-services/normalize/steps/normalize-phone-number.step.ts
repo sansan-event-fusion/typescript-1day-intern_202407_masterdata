@@ -31,9 +31,12 @@ const normalizePhoneNumber = (phoneNumber: string) => {
     return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
   });
 
-  normalizedPhoneNumber = normalizedPhoneNumber.replace(/\s/g, "");
-
   normalizedPhoneNumber = normalizedPhoneNumber.replace(CONTROL_CHARACTER_REGEXP, "")
+
+  normalizedPhoneNumber = normalizedPhoneNumber.replace(/^\uFEFF/, '');
+
+  // POINT: 先頭末尾の空白のみを取り除く
+  normalizedPhoneNumber = normalizedPhoneNumber.trim();
 
   return normalizedPhoneNumber;
 };
