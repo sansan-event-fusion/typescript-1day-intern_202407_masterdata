@@ -24,5 +24,10 @@ export const NormalizeZipCodeStep: NormalizeWorkflowStep = (data) => {
 
 const normalizeZipCode = (zipCode: string) => {
   // ここに処理を書いてください
+  zipCode = zipCode.replace("ー", "-");
+  zipCode =  zipCode.replace(/[０-９]/g, function(s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  });
+
   return zipCode;
 };
