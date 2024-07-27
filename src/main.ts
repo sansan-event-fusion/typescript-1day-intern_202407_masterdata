@@ -10,12 +10,12 @@ async function bootstrap() {
 
   // 正規化ワークフロー
   console.time('normalizeWorkflow');
-  const rawRepo = app.get(RawDataRepo);
-  const rawDataObservable = await rawRepo.fetch();
+  const rawRepo = app.get(RawDataRepo);//リポジトリ=データの永続化場所のインスタンス化
+  const rawDataObservable = await rawRepo.fetch();//csvデータ取得
   const normalizeExecutor = app.get<WorkFlowExecutorService>(
     WorkflowType.NORMALIZE,
   );
-  await normalizeExecutor.execute(rawDataObservable);
+  await normalizeExecutor.execute(rawDataObservable); //ワークフロー実行
   console.timeEnd('normalizeWorkflow');
 
   // 名寄せ・統合ワークフロー

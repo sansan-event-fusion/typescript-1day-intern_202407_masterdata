@@ -5,7 +5,7 @@ import { Attributes } from './attribute';
 export type BusinessLocation = z.infer<typeof BusinessLocation>;
 
 /**
- * 拠点情報
+ * 拠点情報 open_data.csvの一行分
  */
 export const BusinessLocation = z.object({
   /** SOC: 組織(法人・個人事業主)を一意に特定するID */

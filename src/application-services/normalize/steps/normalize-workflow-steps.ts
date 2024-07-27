@@ -4,6 +4,7 @@ import { NormalizeBusinessLocationNameStep } from './normalize-business-location
 import { NormalizeAddressStep } from './normalize-address.step';
 import { NormalizePhoneNumberStep } from './normalize-phone-number.step';
 
+//上から適用
 export const NORMALIZE_WORKFLOW_STEPS: NormalizeWorkflowStep[] = [
   NormalizeZipCodeStep,
   NormalizePhoneNumberStep,
